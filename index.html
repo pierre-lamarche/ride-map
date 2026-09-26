@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ride Map</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <style>
+    html, body {
+      margin: 0;
+      height: 100%;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+    }
+    #app {
+      display: flex;
+      height: 100%;
+    }
+    #panel {
+      width: 340px;
+      min-width: 280px;
+      display: flex;
+      flex-direction: column;
+      border-right: 1px solid #ddd;
+      background: #fff;
+    }
+    #panel header {
+      padding: 12px 14px;
+      border-bottom: 1px solid #eee;
+    }
+    #panel header h1 {
+      font-size: 16px;
+      margin: 0 0 2px;
+    }
+    #status {
+      font-size: 12px;
+      color: #666;
+    }
+    #list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      overflow-y: auto;
+      flex: 1;
+    }
+    #list li {
+      padding: 10px 14px;
+      border-bottom: 1px solid #f0f0f0;
+      cursor: pointer;
+    }
+    #list li:hover {
+      background: #f5f9ff;
+    }
+    #list li.selected {
+      background: #e8f1ff;
+    }
+    .row {
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+    }
+    .nom {
+      font-weight: 600;
+      font-size: 13px;
+    }
+    .date {
+      font-size: 12px;
+      color: #666;
+      margin-top: 2px;
+    }
+    .meta {
+      font-size: 12px;
+      color: #444;
+      margin-top: 4px;
+      display: flex;
+      gap: 10px;
+    }
+    .badge {
+      background: #eef;
+      border-radius: 4px;
+      padding: 1px 6px;
+    }
+    #map {
+      flex: 1;
+      height: 100%;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <div id="panel">
+      <header>
+        <h1>Parcours</h1>
+        <div id="status">Chargement de DuckDB…</div>
+      </header>
+      <ul id="list"></ul>
+    </div>
+    <div id="map"></div>
+  </div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script type="module" src="main.js"></script>
+</body>
+</html>
