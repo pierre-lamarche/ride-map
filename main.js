@@ -5,10 +5,9 @@ const SHOW_ROUTES = true;
 
 const map = L.map('map').setView([48.8566, 2.3522], 6);
 
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
   maxZoom: 19,
-  attribution:
-    '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+  attribution: '&copy; Esri, Maxar, Earthstar Geographics'
 }).addTo(map);
 
 const statusEl = document.getElementById('status');
