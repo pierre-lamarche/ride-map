@@ -1,7 +1,7 @@
-import * as duckdb from 'https://cdn.jsdelivr.net/npm/@duckdb/duckdb-wasm@1.32.0/dist/duckdb-browser.mjs';
-
 const BASE_URL = 'https://minio.lab.sspcloud.fr/pierrelamarche/strava';
 const METADATA_URL = `${BASE_URL}/metadonnees.parquet`;
+
+const SHOW_ROUTES = false;
 
 const map = L.map('map').setView([48.8566, 2.3522], 6);
 
@@ -55,6 +55,7 @@ function onActivitySelected(row) {
 }
 
 async function initDuckDB() {
+  const duckdb = await import('https://cdn.jsdelivr.net/npm/@duckdb/duckdb-wasm@1.32.0/dist/duckdb-browser.mjs');
   const bundles = duckdb.getJsDelivrBundles();
   const bundle = await duckdb.selectBundle(bundles);
   const workerUrl = URL.createObjectURL(
@@ -85,6 +86,10 @@ async function loadMetadata(db) {
 }
 
 async function main() {
+  if (!SHOW_ROUTES) {
+    document.getElementById('panel').style.display = 'none';
+    return;
+  }
   try {
     const db = await initDuckDB();
     const rows = await loadMetadata(db);
