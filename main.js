@@ -126,7 +126,7 @@ async function loadMetadata(db) {
   setStatus('Lecture des métadonnées…');
   const conn = await db.connect();
   const table = await conn.query(
-    "SELECT id, strftime(date AT TIME ZONE 'Europe/Paris', '%d/%m/%Y %H:%M') AS date, distance_m, duree FROM read_parquet('metadonnees.parquet') ORDER BY date DESC"
+    "SELECT id, strftime(date AT TIME ZONE 'Europe/Paris', '%d/%m/%Y %H:%M') AS date, distance_m, duree FROM read_parquet('metadonnees.parquet') ORDER BY strftime(date AT TIME ZONE 'Europe/Paris', '%Y-%m-%d %H:%M') ASC"
   );
   const rows = table.toArray().map((r) => r.toJSON());
   await conn.close();
