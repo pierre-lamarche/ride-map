@@ -58,9 +58,9 @@ function renderList(rows) {
         <span class="badge">${dist}</span>
       </div>
       <div class="date">${row.date}</div>
-      <div class="meta"><span>${dur}</span></div>
+      <div class="meta"><span class="badge">${row.type}</span><span>${dur}</span></div>
     `;
-    li.querySelector('.nom').textContent = row.id;
+    li.querySelector('.nom').textContent = row.nom;
     li.addEventListener('click', () => {
       listEl.querySelectorAll('li').forEach((el) => el.classList.remove('selected'));
       li.classList.add('selected');
@@ -126,7 +126,7 @@ async function loadMetadata(db) {
   setStatus('Lecture des métadonnées…');
   const conn = await db.connect();
   const table = await conn.query(
-    "SELECT id, strftime(date AT TIME ZONE 'Europe/Paris', '%d/%m/%Y %H:%M') AS date, distance_m, duree FROM read_parquet('metadonnees.parquet') ORDER BY strftime(date AT TIME ZONE 'Europe/Paris', '%Y-%m-%d %H:%M') ASC"
+    "SELECT id, nom, type, strftime(date AT TIME ZONE 'Europe/Paris', '%d/%m/%Y %H:%M') AS date, distance_m, duree FROM read_parquet('metadonnees.parquet') ORDER BY strftime(date AT TIME ZONE 'Europe/Paris', '%Y-%m-%d %H:%M') ASC"
   );
   const rows = table.toArray().map((r) => r.toJSON());
   await conn.close();
