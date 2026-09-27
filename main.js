@@ -85,10 +85,10 @@ async function onActivitySelected(row) {
       const table = await conn.query(
         `SELECT latitude, longitude FROM read_parquet('${traceName}')`
       );
-      pts = table.toArray().map((r) => {
-        const o = r.toJSON();
-        return [o.latitude, o.longitude];
-      });
+      pts = table.toArray()
+        .map((r) => r.toJSON())
+        .filter((o) => Number.isFinite(o.latitude) && Number.isFinite(o.longitude))
+        .map((o) => [o.latitude, o.longitude]);
       await db.dropFile(traceName);
       await conn.close();
 
